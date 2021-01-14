@@ -19,6 +19,8 @@ if (isset($_POST['submit'])) {
     
     $res = curl_exec($curl);
     curl_close($curl);
+
+    $_POST = array();
     
   } 
 }
@@ -38,14 +40,15 @@ if (isset($_POST['submit'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Sign Up Form</title>
+  <title>Sign Up</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-  <h1 class="text-center">Simple Sign Up</h1>
-    <div class="d-flex justify-content-center">
+  <div class="bg-white mt-5 rounded shadow w-50 mx-auto">
+  <h1 class="text-center font-weight-bold pb-2 pt-2">Sign Up</h1>
+    <div class="d-flex justify-content-center" >
     
       <form action="<?php $_SERVER['PHP_SELF']?>" method="POST">
       <?php if(isset($success)):  ?>
@@ -54,7 +57,7 @@ if (isset($_POST['submit'])) {
             </div>
           <?php endif; ?>
         <div class="form-group">
-          <label for="firstName">First Name <small class="text-muted">(required)</small></label>
+          <label for="firstName" class="font-weight-bold">First Name <small class="text-muted">(required)</small></label>
           <input type="text" class="form-control" id="firstName" name="firstName" required value="<?php echo $firstName; ?>">
 
           <?php if(array_key_exists('firstName', $errors)):  ?>
@@ -68,7 +71,7 @@ if (isset($_POST['submit'])) {
 
          
 
-          <label for="lastName">Last Name <small class="text-muted">(optional)</small></label>
+          <label for="lastName" class="font-weight-bold">Last Name <small class="text-muted">(optional)</small></label>
           <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo $lastName; ?>">
 
           <?php if(array_key_exists('lastName', $errors)):  ?>
@@ -82,7 +85,7 @@ if (isset($_POST['submit'])) {
 
           
 
-          <label for="email">Email <small class="text-muted">(required)</small></label>
+          <label for="email" class="font-weight-bold">Email <small class="text-muted">(required)</small></label>
           <input type="email" class="form-control" id="email" name="email" required value="<?php echo $email; ?>">
 
           <?php if(array_key_exists('email', $errors)):  ?>
@@ -94,7 +97,7 @@ if (isset($_POST['submit'])) {
         </div>
 
         <div class="form-group">
-          <label for="phone">Phone Number <small class="text-muted">(optional)</small></label>
+          <label for="phone" class="font-weight-bold">Phone Number <small class="text-muted">(optional)</small></label>
           <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $phone; ?>">
 
           <?php if(array_key_exists('phone', $errors)):  ?>
@@ -109,9 +112,11 @@ if (isset($_POST['submit'])) {
       </form>
     </div>
 
-
-    <a href="https://webhook.site/#!/731d0359-b527-48c8-947e-2eaff42c5241/bb6a7505-a70c-4ca7-859c-c012d5fdb5e8/1" target="_noblank">View Webhook.site</a>
-
+    
+    <div class="text-center pb-3 pt-3">
+    <a class="mx-auto" href="https://webhook.site/#!/731d0359-b527-48c8-947e-2eaff42c5241/bb6a7505-a70c-4ca7-859c-c012d5fdb5e8/1" target="_noblank">View Webhook.site</a>
+    </div>
+    </div>
   </div>
 
 </body>

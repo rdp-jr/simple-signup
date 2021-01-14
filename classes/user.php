@@ -1,17 +1,17 @@
 <?php
 class User {
-  private $uid, $firstName, $lastName, $email, $phone;
+  private $id, $firstName, $lastName, $email, $phone;
 
   public function __construct($firstName, $lastName, $email, $phone) {
-    // $this->uid = 'implement later';
+    $this->id = md5($email);
     $this->firstName = $firstName;
     $this->lastName = $lastName;
     $this->email = $email;
     $this->phone = $phone;
   }
 
-  public function getUid() {
-    return $this->uid;
+  public function getId() {
+    return $this->id;
   }
 
   public function getFirstName() {

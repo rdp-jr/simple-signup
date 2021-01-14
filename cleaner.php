@@ -80,7 +80,7 @@ class UserCleaner {
   public function getArray() {
     
     $data = array (
-      'uid' => $this->user->getUid(),
+      'id' => $this->user->getId(),
       'firstName' => $this->user->getFirstName(),
       'lastName' => $this->user->getLastName(),
       'email' => $this->user->getEmail(),
