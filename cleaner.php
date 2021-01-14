@@ -10,31 +10,24 @@ class UserCleaner {
   }
 
   public function validate() {
-
     $requiredFields = ['firstName', 'email'];
-    
     $r = new ReflectionClass($this->user);
     foreach($requiredFields as $requiredField) {
-
       $p = $r->getProperty($requiredField);  
       $p->setAccessible(true);
-
       if (empty($p->getValue($this->user))) {
         $this->AddError($requiredField, "$requiredField is missing");
         return;
       }
     }
-  
-  if (!empty($this->errors)) {
-    return $this->errors;
-  }  
-
-  $this->cleanFirstName();  
-  $this->cleanLastName();  
-  $this->cleanEmail();  
-  $this->cleanPhone();  
-  return $this->errors;
-  
+    if (!empty($this->errors)) {
+      return $this->errors;
+    }  
+    $this->cleanFirstName();  
+    $this->cleanLastName();  
+    $this->cleanEmail();  
+    $this->cleanPhone();  
+    return $this->errors;  
   }
 
   private function cleanFirstName() {
@@ -49,19 +42,15 @@ class UserCleaner {
     } else {
       $this->AddError('firstName', 'First Name must be letters only');
     }
-    
   }
 
   private function cleanLastName() {
     if (!empty($this->user->getLastName())) { 
       $clean = trim($this->user->getLastName());
-
-      
       if (empty($clean)) {
         $this->user->setLastName('');
         return;
       }
-
       $clean = filter_var($clean, FILTER_SANITIZE_STRING);
       if (preg_match('/[a-zA-Z][a-zA-Z ]+/', $clean)) {
         $this->user->setLastName($clean);
@@ -75,7 +64,6 @@ class UserCleaner {
     $clean = trim($this->user->getEmail());
     $clean = filter_var($clean, FILTER_SANITIZE_EMAIL);
     $check = filter_var($clean, FILTER_VALIDATE_EMAIL);
-
     if ($check != false) {
       $this->user->setEmail($clean);
     } else {
@@ -87,8 +75,16 @@ class UserCleaner {
     if (!empty($this->user->getPhone())) {
       $clean = trim($this->user->getPhone());
       $clean = filter_var($clean, FILTER_SANITIZE_NUMBER_INT);
+      $minimumLength = 5;
+      $maximumLength = 10;
+      if (strlen($clean) < $minimumLength) {
+        $this->AddError('phone', 'Phone number is too short');
+        return;
+      } else if (strlen($clean) > $maximumLength) {
+        $this->AddError('phone', 'Phone number is too long');
+        return;
+      }
       $check = filter_var($clean, FILTER_VALIDATE_INT);
-
       if ($check != false) {
         $this->user->setPhone($clean);
       } else {
@@ -102,7 +98,6 @@ class UserCleaner {
   }
 
   public function getArray() {
-    
     $data = array (
       'id' => $this->user->getId(),
       'firstName' => $this->user->getFirstName(),
@@ -110,10 +105,8 @@ class UserCleaner {
       'email' => $this->user->getEmail(),
       'phone' => $this->user->getPhone()
     );
-
     return $data;
   }
-
 }
 
 ?>
