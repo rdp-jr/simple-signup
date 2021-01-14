@@ -4,7 +4,6 @@ require 'cleaner.php';
 if (isset($_POST['submit'])) {
   $newUser = new UserCleaner($_POST);
   $errors = $newUser->validate();
-  // echo print_r($errors);
 
   if (empty($errors)) {
     $success = true;
@@ -23,10 +22,14 @@ if (isset($_POST['submit'])) {
     
   } 
 }
-
   if (!isset($errors)) {
     $errors = [];
   }
+
+  $firstName = isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : "";
+  $lastName = isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : "";
+  $email = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : "";
+  $phone = isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : "";
 
 ?>
 
@@ -50,62 +53,65 @@ if (isset($_POST['submit'])) {
               Sign Up successful!
             </div>
           <?php endif; ?>
-
-
         <div class="form-group">
+          <label for="firstName">First Name <small class="text-muted">(required)</small></label>
+          <input type="text" class="form-control" id="firstName" name="firstName" required value="<?php echo $firstName; ?>">
 
           <?php if(array_key_exists('firstName', $errors)):  ?>
-            <div class="alert alert-danger" role="alert">
+            <small class="text-danger">
               <?php echo $errors['firstName']; ?>
-            </div>
+            </small>
           <?php endif; ?>
-          
+        </div>
+
+        <div class="form-group">
+
          
 
-          <label for="firstName">First Name <small class="text-muted">(required)</small></label>
-          <input type="text" class="form-control" id="firstName" name="firstName" required>
-        </div>
-
-        <div class="form-group">
+          <label for="lastName">Last Name <small class="text-muted">(optional)</small></label>
+          <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo $lastName; ?>">
 
           <?php if(array_key_exists('lastName', $errors)):  ?>
-            <div class="alert alert-danger" role="alert">
+            <small class="text-danger">
               <?php echo $errors['lastName']; ?>
-            </div>
+            </smal>
           <?php endif; ?>
-
-          <label for="lastName">Last Name <small class="text-muted">(optional)</small></label>
-          <input type="text" class="form-control" id="lastName" name="lastName">
         </div>
 
         <div class="form-group">
 
-          <?php if(array_key_exists('email', $errors)):  ?>
-            <div class="alert alert-danger" role="alert">
-              <?php echo $errors['email']; ?>
-            </div>
-          <?php endif; ?>
+          
 
           <label for="email">Email <small class="text-muted">(required)</small></label>
-          <input type="email" class="form-control" id="email" name="email" required>
+          <input type="email" class="form-control" id="email" name="email" required value="<?php echo $email; ?>">
+
+          <?php if(array_key_exists('email', $errors)):  ?>
+            <small class="text-danger">
+              <?php echo $errors['email']; ?>
+            </small>
+          <?php endif; ?>
+
         </div>
 
         <div class="form-group">
+          <label for="phone">Phone Number <small class="text-muted">(optional)</small></label>
+          <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $phone; ?>">
 
           <?php if(array_key_exists('phone', $errors)):  ?>
-            <div class="alert alert-danger" role="alert">
+            <small class="text-danger">
               <?php echo $errors['phone']; ?>
-            </div>
+            </small>
           <?php endif; ?>
-
-          <label for="phone">Phone Number <small class="text-muted">(optional)</small></label>
-          <input type="text" class="form-control" id="phone" name="phone">
         </div>
 
         <button type="submit" class="btn btn-primary w-100" value="submit" name="submit">Submit</button>
         
       </form>
     </div>
+
+
+    <a href="https://webhook.site/#!/731d0359-b527-48c8-947e-2eaff42c5241/bb6a7505-a70c-4ca7-859c-c012d5fdb5e8/1" target="_noblank">View Webhook.site</a>
+
   </div>
 
 </body>
