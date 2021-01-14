@@ -38,19 +38,42 @@ class UserCleaner {
   }
 
   private function cleanFirstName() {
-    $clean = filter_var($this->user->getFirstName(), FILTER_SANITIZE_STRING);
-    $this->user->setFirstName($clean);
+    $clean = trim($this->user->getFirstName());
+    if (empty($clean)) {
+      $this->AddError('firstName', 'First Name must not be empty');
+      return;
+    }
+    $clean = filter_var($clean, FILTER_SANITIZE_STRING);
+    if (preg_match('/[a-zA-Z][a-zA-Z ]+/', $clean)) {
+      $this->user->setFirstName($clean);
+    } else {
+      $this->AddError('firstName', 'First Name must be letters only');
+    }
+    
   }
 
   private function cleanLastName() {
     if (!empty($this->user->getLastName())) { 
-      $clean = filter_var($this->user->getLastName(), FILTER_SANITIZE_STRING);
-      $this->user->setLastName($clean);
+      $clean = trim($this->user->getLastName());
+
+      
+      if (empty($clean)) {
+        $this->user->setLastName('');
+        return;
+      }
+
+      $clean = filter_var($clean, FILTER_SANITIZE_STRING);
+      if (preg_match('/[a-zA-Z][a-zA-Z ]+/', $clean)) {
+        $this->user->setLastName($clean);
+      } else {
+        $this->AddError('lastName', 'Last Name must be letters only');
+      }
     }
   }
 
   private function cleanEmail() {
-    $clean = filter_var($this->user->getEmail(), FILTER_SANITIZE_EMAIL);
+    $clean = trim($this->user->getEmail());
+    $clean = filter_var($clean, FILTER_SANITIZE_EMAIL);
     $check = filter_var($clean, FILTER_VALIDATE_EMAIL);
 
     if ($check != false) {
@@ -62,7 +85,8 @@ class UserCleaner {
 
   private function cleanPhone() {
     if (!empty($this->user->getPhone())) {
-      $clean = filter_var($this->user->getPhone(), FILTER_SANITIZE_NUMBER_INT);
+      $clean = trim($this->user->getPhone());
+      $clean = filter_var($clean, FILTER_SANITIZE_NUMBER_INT);
       $check = filter_var($clean, FILTER_VALIDATE_INT);
 
       if ($check != false) {
