@@ -74,6 +74,10 @@ class UserCleaner {
   private function cleanPhone() {
     if (!empty($this->user->getPhone())) {
       $clean = trim($this->user->getPhone());
+      if (empty($clean)) {
+        $this->user->setPhone('');
+        return;
+      }
       $clean = filter_var($clean, FILTER_SANITIZE_NUMBER_INT);
       $minimumLength = 5;
       $maximumLength = 10;
