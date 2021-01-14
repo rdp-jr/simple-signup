@@ -11,6 +11,7 @@
 ### Concepts
 * Input and Form Validation and Sanitization
 * Object Oriented Programming using PHP
+* HTTP Requests using cURL to API (Webhook.site)
 
 ### How to run in local machine
 1. Download/Clone the repository
