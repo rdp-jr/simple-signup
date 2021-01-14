@@ -76,6 +76,20 @@ class UserCleaner {
   private function AddError($field, $msg) {
     $this->errors[$field] = $msg;
   }
+
+  public function getArray() {
+    
+    $data = array (
+      'uid' => $this->user->getUid(),
+      'firstName' => $this->user->getFirstName(),
+      'lastName' => $this->user->getLastName(),
+      'email' => $this->user->getEmail(),
+      'phone' => $this->user->getPhone()
+    );
+
+    return $data;
+  }
+
 }
 
 ?>

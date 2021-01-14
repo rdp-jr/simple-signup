@@ -7,11 +7,21 @@ if (isset($_POST['submit'])) {
   // echo print_r($errors);
 
   if (empty($errors)) {
-    // echo 'no errors';
     $success = true;
-  } else {
-    // echo 'there are errors!';
-  }
+
+    $url = 'https://webhook.site/731d0359-b527-48c8-947e-2eaff42c5241';
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_POST, 1);
+    
+    $formData = $newUser->getArray();
+
+    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($formData));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    
+    $res = curl_exec($curl);
+    curl_close($curl);
+    
+  } 
 }
 
   if (!isset($errors)) {
