@@ -4,15 +4,19 @@ require 'cleaner.php';
 if (isset($_POST['submit'])) {
   $newUser = new UserCleaner($_POST);
   $errors = $newUser->validate();
-  echo print_r($errors);
+  // echo print_r($errors);
 
   if (empty($errors)) {
-    echo 'no errors';
+    // echo 'no errors';
+    $success = true;
   } else {
-    echo 'there are errors!';
+    // echo 'there are errors!';
   }
 }
 
+  if (!isset($errors)) {
+    $errors = [];
+  }
 
 ?>
 
@@ -31,22 +35,59 @@ if (isset($_POST['submit'])) {
     <div class="d-flex justify-content-center">
     
       <form action="<?php $_SERVER['PHP_SELF']?>" method="POST">
+      <?php if(isset($success)):  ?>
+            <div class="alert alert-success" role="alert">
+              Sign Up successful!
+            </div>
+          <?php endif; ?>
+
+
         <div class="form-group">
+
+          <?php if(array_key_exists('firstName', $errors)):  ?>
+            <div class="alert alert-danger" role="alert">
+              <?php echo $errors['firstName']; ?>
+            </div>
+          <?php endif; ?>
+          
+         
+
           <label for="firstName">First Name <small class="text-muted">(required)</small></label>
           <input type="text" class="form-control" id="firstName" name="firstName" required>
         </div>
 
         <div class="form-group">
+
+          <?php if(array_key_exists('lastName', $errors)):  ?>
+            <div class="alert alert-danger" role="alert">
+              <?php echo $errors['lastName']; ?>
+            </div>
+          <?php endif; ?>
+
           <label for="lastName">Last Name <small class="text-muted">(optional)</small></label>
           <input type="text" class="form-control" id="lastName" name="lastName">
         </div>
 
         <div class="form-group">
+
+          <?php if(array_key_exists('email', $errors)):  ?>
+            <div class="alert alert-danger" role="alert">
+              <?php echo $errors['email']; ?>
+            </div>
+          <?php endif; ?>
+
           <label for="email">Email <small class="text-muted">(required)</small></label>
           <input type="email" class="form-control" id="email" name="email" required>
         </div>
 
         <div class="form-group">
+
+          <?php if(array_key_exists('phone', $errors)):  ?>
+            <div class="alert alert-danger" role="alert">
+              <?php echo $errors['phone']; ?>
+            </div>
+          <?php endif; ?>
+
           <label for="phone">Phone Number <small class="text-muted">(optional)</small></label>
           <input type="text" class="form-control" id="phone" name="phone">
         </div>
