@@ -1,6 +1,16 @@
 <?php
+require 'cleaner.php';
+
 if (isset($_POST['submit'])) {
-  echo 'submitted';
+  $newUser = new UserCleaner($_POST);
+  $errors = $newUser->validate();
+  echo print_r($errors);
+
+  if (empty($errors)) {
+    echo 'no errors';
+  } else {
+    echo 'there are errors!';
+  }
 }
 
 
@@ -11,7 +21,7 @@ if (isset($_POST['submit'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple SignUp Form</title>
+  <title>Simple Sign Up Form</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   
 </head>
