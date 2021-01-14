@@ -1,7 +1,7 @@
 <?php
 
 class User {
-  public $uid, $firstName, $lastName, $email, $phone;
+  private $uid, $firstName, $lastName, $email, $phone;
 
   public function __construct($firstName, $lastName, $email, $phone) {
     // $this->uid = 'implement later';
@@ -10,11 +10,51 @@ class User {
     $this->email = $email;
     $this->phone = $phone;
   }
+
+  public function getUid() {
+    return $this->uid;
+  }
+
+  public function getFirstName() {
+    return $this->firstName;
+  } 
+
+  public function getLastName() {
+    return $this->lastName;
+  }
+
+  public function getEmail() {
+    return $this->email;
+  }
+
+  public function getPhone() {
+    return $this->phone;
+  }
+
+  public function setFirstName($firstName) {
+    $this->firstName = $firstName;
+  }
+
+  public function setLastName($lastName) {
+    $this->lastName = $lastName;
+  }
+
+  public function setEmail($email) {
+    $this->email = $email;
+  }
+
+  public function setPhone($phone) {
+    $this->phone = $phone;
+  }
+
 }
 
 
 $user = new User('Juan', 'dela Cruz', 'juan.dcruz@gmail.com', '1234567890');
-echo var_dump(get_object_vars($user));
+
+echo $user->getEmail() . '<br>';
+$user->setLastName('Doe');
+echo $user->getLastName();
 
 ?>
 
