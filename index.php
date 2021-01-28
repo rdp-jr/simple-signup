@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
   if (empty($errors)) {
     $success = true;
 
-    $url = 'https://webhook.site/731d0359-b527-48c8-947e-2eaff42c5241';
+    $url = 'https://webhook.site/d70961c9-0789-4f34-bfad-0d6f30dcc3c7';
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_POST, 1);
     
@@ -103,7 +103,7 @@ if (isset($_POST['submit'])) {
 
           
           <div class="text-center pb-3 pt-3">
-          <a class="mx-auto" href="https://webhook.site/#!/731d0359-b527-48c8-947e-2eaff42c5241/bb6a7505-a70c-4ca7-859c-c012d5fdb5e8/1" target="_noblank">View Webhook.site</a>
+          <a class="mx-auto" href="https://webhook.site/#!/d70961c9-0789-4f34-bfad-0d6f30dcc3c7" target="_noblank">View Webhook.site</a>
           </div>
         </div>
     </div>
